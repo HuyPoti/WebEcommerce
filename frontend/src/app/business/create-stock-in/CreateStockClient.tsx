@@ -69,7 +69,8 @@ export default function CreateStockClient({
         return;
       }
 
-      const createdAtIsoVn = DateTime.now().setZone("Asia/Ho_Chi_Minh").toISO();
+      const createdAtIsoVn =
+        DateTime.now().setZone("Asia/Ho_Chi_Minh").toISO() ?? "";
 
       const payload: {
         MaNCC: string;

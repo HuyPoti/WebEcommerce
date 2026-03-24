@@ -10,7 +10,7 @@ interface AuthState {
   isLoading: boolean;
 }
 interface AuthContextType extends AuthState {
-  login: (email: string, password: string) => Promise<any>;
+  login: (email: string, password: string) => Promise<{ success: boolean; error?: unknown }>;
   register: (email: string, password: string, name: string) => Promise<boolean>;
   OauthLogin: (provider: string) => void;
   logout: () => void;
@@ -59,9 +59,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       listener?.subscription.unsubscribe();
     };
-  }, []);
+  }, [supabase.auth]);
 
-  const login = async (email: string, password: string): Promise<any> => {
+  const login = async (
+    email: string,
+    password: string
+  ): Promise<{ success: boolean; error?: unknown }> => {
     try {
       setState((prev) => ({ ...prev, isLoading: true }));
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -153,11 +156,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const itemCart = localStorage.getItem("cart");
     if (userId && itemCart) {
       const parsedCart = JSON.parse(itemCart);
-      const mapperItem = parsedCart.map((item: any) => ({
-        MaCTSP: item.productId,
-        SoLuong: item.quantity,
-        KichCo: item.size,
-      }));
+      const mapperItem = parsedCart.map(
+        (item: { productId: string; quantity: number; size: string }) => ({
+          MaCTSP: item.productId,
+          SoLuong: item.quantity,
+          KichCo: item.size,
+        })
+      );
       // 2. Gọi API lưu giỏ hàng
       await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/giohang/update-cart?MaTKKH=${userId}`,

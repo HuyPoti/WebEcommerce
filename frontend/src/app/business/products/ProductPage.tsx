@@ -47,6 +47,12 @@ const sortProductSizes = (data: Product[]): Product[] =>
     return product;
   });
 
+enum Filter {
+  All = "all",
+  Active = "active",
+  Inactive = "inactive",
+}
+
 export default function ProductsPageClient({
   access_token,
 }: {
@@ -68,14 +74,7 @@ export default function ProductsPageClient({
   const [noMoreProducts, setNoMoreProducts] = useState(false);
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
-
-  enum Filter {
-    All = "all",
-    Active = "active",
-    Inactive = "inactive",
-  }
   const [filter, setFilter] = useState<Filter>(Filter.All);
-
   const fetchProducts = useCallback(
     async (pageNum: number) => {
       if (loading || (noMoreProducts && pageNum > 1)) return;
@@ -130,14 +129,14 @@ export default function ProductsPageClient({
         setLoading(false);
       }
     },
-    [access_token, debouncedSearch, filter, Filter]
+    [access_token, debouncedSearch, filter, loading, noMoreProducts, pageSize]
   );
 
   // Fetch first page or whenever search/filter changes
   useEffect(() => {
     setPage(1);
     fetchProducts(1);
-  }, [debouncedSearch, filter]);
+  }, [debouncedSearch, filter, fetchProducts]);
 
   // Infinite scroll observer
   const handleObserver = useCallback(
@@ -161,7 +160,7 @@ export default function ProductsPageClient({
   useEffect(() => {
     if (page === 1) return;
     fetchProducts(page);
-  }, [page]);
+  }, [page, fetchProducts]);
 
   // Save product
   const handleSave = async (data: Product) => {

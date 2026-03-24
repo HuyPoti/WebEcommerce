@@ -66,7 +66,6 @@ export default function ReceiptTable({
   loadingMore,
   onReload,
 }: ReceiptTableProps) {
-  const business = receipts ?? [];
   console.log("Rendering ReceiptTable with receipts:", loadingMore);
   function calcTotal(itms?: Item[], rawItems?: Item[], computed?: number) {
     if (typeof computed === "number") return computed;
@@ -79,11 +78,10 @@ export default function ReceiptTable({
   }
 
   const filtered = React.useMemo(() => {
-    if (statusFilterProp === "ALL") return business;
-    return business.filter(
-      (b) => (b.TrangThai ?? "DANG_CHO") === statusFilterProp
-    );
-  }, [business, statusFilterProp]);
+    const data = receipts ?? [];
+    if (statusFilterProp === "ALL") return data;
+    return data.filter((b) => (b.TrangThai ?? "DANG_CHO") === statusFilterProp);
+  }, [receipts, statusFilterProp]);
 
   function renderBusinessRows(list: ReceiptData[]) {
     if (!list || list.length === 0) {

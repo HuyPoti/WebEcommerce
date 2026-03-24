@@ -34,6 +34,8 @@ interface ProductPopupProps {
   setError: (error: string | null) => void;
 }
 
+const sizes = ["S", "M", "L", "XL", "XXL"];
+
 export default function ProductPopup({
   open,
   onClose,
@@ -42,7 +44,6 @@ export default function ProductPopup({
   selectedSizeIndex,
   setSelectedSizeIndex,
 }: ProductPopupProps) {
-  const sizes = ["S", "M", "L", "XL", "XXL"];
   const { categories, loading } = useContext(CategoryContext);
 
   const [form, setForm] = useState<Product>({

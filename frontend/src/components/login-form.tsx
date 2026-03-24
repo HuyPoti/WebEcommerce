@@ -34,7 +34,10 @@ export function LoginForm({
 
     const lg = await login(email, password);
     if (lg.success) router.push("/");
-    else setError(lg.error.message || "Đăng nhập thất bại");
+    else
+      setError(
+        (lg.error as { message?: string })?.message || "Đăng nhập thất bại"
+      );
 
     setIsLoading(false);
   };

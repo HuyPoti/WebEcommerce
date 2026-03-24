@@ -68,10 +68,10 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
       if (!res.ok) throw new Error("Failed to fetch products");
       const data: Product[] = await res.json();
       dispatch({ type: "FETCH_SUCCESS", payload: data });
-    } catch (error: any) {
+    } catch (error: unknown) {
       dispatch({
         type: "FETCH_ERROR",
-        payload: error.message || "Unknown error",
+        payload: error instanceof Error ? error.message : "Unknown error",
       });
     }
   };
