@@ -6,41 +6,43 @@
 [![Prisma](https://img.shields.io/badge/ORM-Prisma-2D3748?logo=prisma)](https://www.prisma.io/)
 [![Supabase](https://img.shields.io/badge/Auth-Supabase-3ECF8E?logo=supabase)](https://supabase.com/)
 
-**Flex Style** là nền tảng thương mại điện tử hiện đại, tập trung vào trải nghiệm người dùng cao cấp và hệ thống quản trị mạnh mẽ. Dự án được phát triển theo cấu trúc Monorepo, đảm bảo tính đồng bộ và dễ dàng mở rộng.
+[[Tiếng Việt]](README_VN.md)
+
+**Flex Style** is a modern e-commerce platform focused on providing a high-end user experience and a powerful management system. The project is developed using a Monorepo structure, ensuring consistency and ease of scalability.
 
 ---
 
-## 🏗️ Kiến trúc Hệ thống
+## 🏗️ System Architecture
 
-Hệ thống được chia làm 2 phần chính:
+The system is divided into two main components:
 
-- **Frontend (`/frontend`)**: Xây dựng trên Next.js 15 (App Router), tích hợp Supabase Auth và Tailwind CSS cho giao diện Responsive.
-- **Backend (`/backend`)**: NestJS API mạnh mẽ, sử dụng Prisma ORM kết nối PostgreSQL, tích hợp các lớp bảo vệ chuyên sâu (Helmet, Rate Limit, Audit Log).
-
----
-
-## ⚡ Các Tính năng Nổi bật
-
-### 🔥 Nghiệp vụ Phức tạp
-- **Quản lý sản phẩm đa biến thể**: Kích cỡ (S, M, L, XL, XXL), Màu sắc, Tình trạng kho.
-- **Hệ thống giỏ hàng & Đơn hàng**: Tự động tính toán tổng tiền, áp dụng Voucher và Sự kiện ưu đãi.
-- **Thanh toán đa phương thức**: Tích hợp VNPAY và PayPal (Sandbox).
-- **Thống kê chi tiết**: Báo cáo doanh thu và biểu đồ trực quan (Recharts).
-
-### 🛡️ Bảo mật Chuyên sâu (Advanced Security)
-Chúng tôi ưu tiên bảo mật thông tin với các lớp bảo vệ chuẩn doanh nghiệp:
-- **HTTP Hardening**: Tích hợp `Helmet` giúp chống XSS, Clickjacking và Sniffing.
-- **Rate Limiting**: Giới hạn 100 request/phút/IP để chống Brute-force và Spam API.
-- **Recursive Data Masking**: Tự động che giấu thông tin nhạy cảm (mật khẩu, token) trong mọi API Response.
-- **Audit Logging**: Nhật ký hành động ghi lại mọi thay đổi nhạy cảm (ai sửa hàng, ai khóa tài khoản).
-- **Security Headers & CSP**: Chính sách bảo mật trình duyệt nghiêm ngặt trong Next.js.
-- **Input Neutralization**: Whitelist validation cho mọi dữ liệu đầu vào.
+- **Frontend (`/frontend`)**: Built with Next.js 15 (App Router), integrating Supabase Auth and Tailwind CSS for a Responsive UI.
+- **Backend (`/backend`)**: A robust NestJS API, using Prisma ORM to connect with PostgreSQL, featuring advanced security layers (Helmet, Rate Limit, Audit Log).
 
 ---
 
-## 🛠️ Yêu cầu Hệ thống
+## ⚡ Key Highlights
 
-| Công cụ | Phiên bản |
+### 🔥 Complex Business Logic
+- **Multi-variant product management**: Sizes (S, M, L, XL, XXL), Colors, Inventory status.
+- **Cart & Order System**: Automatic total calculation, Voucher application, and Promotional events.
+- **Multi-method Payment**: Integration with VNPAY and PayPal (Sandbox).
+- **Detailed Analytics**: Revenue reports and visual charts (Recharts).
+
+### 🛡️ Advanced Security
+We prioritize security with standard enterprise protection layers:
+- **HTTP Hardening**: `Helmet` integration to prevent XSS, Clickjacking, and Sniffing.
+- **Rate Limiting**: Limited to 100 requests/minute/IP to prevent Brute-force and API spam.
+- **Recursive Data Masking**: Automatically shields sensitive information (passwords, tokens) in every API response.
+- **Audit Logging**: Action logs tracking all sensitive changes (who edited product, who locked account).
+- **Security Headers & CSP**: Strict browser security policy in Next.js.
+- **Input Neutralization**: Whitelist validation for all input data.
+
+---
+
+## 🛠️ System Requirements
+
+| Tool | Version |
 | --- | --- |
 | Node.js | >= 20.x (LTS) |
 | NPM | >= 10.x |
@@ -48,37 +50,37 @@ Chúng tôi ưu tiên bảo mật thông tin với các lớp bảo vệ chuẩn
 
 ---
 
-## 🚀 Hướng dấn Cài đặt nhanh
+## 🚀 Quick Installation
 
-### 1. Cấu hình Biến môi trường
-Tạo file `.env` tại các thư mục tương ứng theo mẫu `env.example`.
+### 1. Environment Configuration
+Create an `.env` file in the respective directories based on the `env.example` templates.
 
-### 2. Triển khai Backend
+### 2. Backend Deployment
 ```powershell
 cd backend
 npm install
-# Khởi tạo DB & Audit Log
+# Initialize DB & Audit Log
 npx prisma db push
 npm run start:dev
 ```
-API phục vụ tại: `http://localhost:8080/api`  
-Swagger: `http://localhost:8080/api/docs` (Chỉ hiển thị ở Dev)
+API served at: `http://localhost:8080/api`  
+Swagger: `http://localhost:8080/api/docs` (Dev only)
 
-### 3. Triển khai Frontend
+### 3. Frontend Deployment
 ```powershell
 cd ../frontend
 npm install
 npm run dev
 ```
-Web phục vụ tại: `http://localhost:3000`
+Website served at: `http://localhost:3000`
 
 ---
 
-## 🧪 Kiểm thử & Chất lượng Code
+## 🧪 Testing & Code Quality
 
-Dự án tích hợp sẵn bộ gõ test bảo mật:
+The project includes built-in security test tools:
 ```powershell
-# Chạy Security Unit Tests (Backend)
+# Run Security Unit Tests (Backend)
 npm run test response.interceptor.spec.ts jwt.guard.spec.ts
 
 # Lint & Format
@@ -88,10 +90,9 @@ npm run format
 
 ---
 
-## 📜 Giấy phép (License)
+## 📜 License
 
-Dự án được phát hành dưới giấy phép **MIT**. Xem file [LICENSE](./LICENSE) để biết thêm chi tiết.
+This project is released under the **MIT** license. See the [LICENSE](./LICENSE) file for more details.
 
 ---
 **Flex Style Team** 🚀 - *Building the future of E-commerce*
-
